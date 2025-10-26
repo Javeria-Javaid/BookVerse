@@ -1,0 +1,27 @@
+.nav-list {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-link {
+    color: #EEF4ED;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+}
+
+.nav-link:hover {
+    color: #E63946;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+    .navigation {
+        display: none;
+    }
+}

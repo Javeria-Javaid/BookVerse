@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Navigation from './Navigation';
+import SearchBar from './SearchBar';
 import './Header.css';
 
 const Header = () => {
@@ -15,22 +17,19 @@ const Header = () => {
                         </a>
                     </div>
 
+                    {/* Search Bar - Desktop */}
+                    <div className="search-container">
+                        <SearchBar />
+                    </div>
+
                     {/* Desktop Navigation */}
-                    <nav className="nav">
-                        <ul className="nav-list">
-                            <li><a href="#home" className="nav-link">Home</a></li>
-                            <li><a href="#featured" className="nav-link">Featured</a></li>
-                            <li><a href="#bestsellers" className="nav-link">Bestsellers</a></li>
-                            <li><a href="#old-books" className="nav-link">Old Books</a></li>
-                            <li><a href="#categories" className="nav-link">Categories</a></li>
-                        </ul>
-                    </nav>
+                    <Navigation />
 
                     {/* Utility Icons */}
                     <div className="utility-icons">
-                        <button className="icon-button">🔍</button>
-                        <button className="icon-button">❤️</button>
-                        <button className="icon-button">
+                        <button className="icon-button" title="Search">🔍</button>
+                        <button className="icon-button" title="Wishlist">❤️</button>
+                        <button className="icon-button" title="Cart">
                             🛒 <span className="cart-count">0</span>
                         </button>
                     </div>
@@ -47,6 +46,9 @@ const Header = () => {
                 {/* Mobile Menu */}
                 {isMenuOpen && (
                     <div className="mobile-menu">
+                        <div className="mobile-search">
+                            <SearchBar />
+                        </div>
                         <a href="#home" className="mobile-nav-link">Home</a>
                         <a href="#featured" className="mobile-nav-link">Featured</a>
                         <a href="#bestsellers" className="mobile-nav-link">Bestsellers</a>
