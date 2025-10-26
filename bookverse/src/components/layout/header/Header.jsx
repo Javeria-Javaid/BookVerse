@@ -17,11 +17,6 @@ const Header = () => {
                         </a>
                     </div>
 
-                    {/* Search Bar - Desktop */}
-                    <div className="search-container">
-                        <SearchBar />
-                    </div>
-
                     {/* Desktop Navigation */}
                     <Navigation />
 
