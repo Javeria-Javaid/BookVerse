@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import Layout from './components/layout/Layout';
 import Hero from './components/home/Hero/Hero';
-import Button from './components/common/Button/Button';
-import ProductCard from './components/common/ProductCard/ProductCard';
+import FeaturedCategories from './components/home/FeaturedCategories/FeaturedCategories';
+import Bestsellers from './components/home/Bestsellers/Bestsellers';
 import Modal from './components/common/Modal/Modal';
 
-// Mock data for testing
+// Mock data
 const mockBooks = [
     {
         id: 1,
@@ -40,6 +40,16 @@ const mockBooks = [
         conditionType: "Good",
         isBestseller: false,
         isNewArrival: true
+    },
+    {
+        id: 4,
+        title: "Pride and Prejudice",
+        author: "Jane Austen",
+        price: 14.99,
+        rating: 4.7,
+        condition: "new",
+        isBestseller: true,
+        isNewArrival: false
     }
 ];
 
@@ -59,40 +69,15 @@ function App() {
     return (
         <Layout>
             <Hero />
+            <FeaturedCategories />
+            <Bestsellers
+                books={mockBooks}
+                onAddToCart={handleAddToCart}
+                onViewDetails={handleViewDetails}
+            />
 
-            {/* Featured Books Section */}
-            <section id="featured" style={{ padding: '4rem 0', background: '#EEF4ED' }}>
-                <div className="container">
-                    <h2 style={{ textAlign: 'center', marginBottom: '3rem', color: '#0B2545' }}>
-                        Featured Books
-                    </h2>
-                    <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-                        {mockBooks.map(book => (
-                            <ProductCard
-                                key={book.id}
-                                book={book}
-                                onAddToCart={handleAddToCart}
-                                onViewDetails={handleViewDetails}
-                            />
-                        ))}
-                    </div>
-                </div>
-            </section>
+            {/* Add more sections here later */}
 
-            {/* Test Buttons Section */}
-            <section style={{ padding: '2rem 0', background: 'white' }}>
-                <div className="container">
-                    <h3 style={{ marginBottom: '1.5rem', color: '#0B2545' }}>Component Testing</h3>
-                    <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-                        <Button variant="primary" size="large">Primary Large</Button>
-                        <Button variant="secondary" size="medium">Secondary Medium</Button>
-                        <Button variant="outline" size="small">Outline Small</Button>
-                        <Button disabled>Disabled Button</Button>
-                    </div>
-                </div>
-            </section>
-
-            {/* Modal */}
             <Modal
                 isOpen={isModalOpen}
                 onClose={() => {
@@ -107,10 +92,17 @@ function App() {
                         <p><strong>Price:</strong> ${selectedBook.price}</p>
                         <p><strong>Rating:</strong> {selectedBook.rating}/5</p>
                         <p><strong>Condition:</strong> {selectedBook.condition}</p>
+                        {selectedBook.conditionType && (
+                            <p><strong>Condition Type:</strong> {selectedBook.conditionType}</p>
+                        )}
                         <div style={{ marginTop: '1.5rem' }}>
-                            <Button variant="primary" onClick={() => handleAddToCart(selectedBook)}>
+                            <button
+                                className="btn btn-primary"
+                                onClick={() => handleAddToCart(selectedBook)}
+                                style={{ padding: '0.75rem 1.5rem' }}
+                            >
                                 Add to Cart
-                            </Button>
+                            </button>
                         </div>
                     </div>
                 )}
