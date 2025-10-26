@@ -5,7 +5,7 @@ import FeaturedCategories from './components/home/FeaturedCategories/FeaturedCat
 import Bestsellers from './components/home/Bestsellers/Bestsellers';
 import Modal from './components/common/Modal/Modal';
 
-// Mock data
+// Mock data for books
 const mockBooks = [
     {
         id: 1,
@@ -50,6 +50,28 @@ const mockBooks = [
         condition: "new",
         isBestseller: true,
         isNewArrival: false
+    },
+    {
+        id: 5,
+        title: "The Hobbit",
+        author: "J.R.R. Tolkien",
+        price: 18.99,
+        originalPrice: 22.99,
+        rating: 4.9,
+        condition: "new",
+        isBestseller: true,
+        isNewArrival: false
+    },
+    {
+        id: 6,
+        title: "Harry Potter and the Sorcerer's Stone",
+        author: "J.K. Rowling",
+        price: 16.99,
+        rating: 4.8,
+        condition: "used",
+        conditionType: "Like New",
+        isBestseller: true,
+        isNewArrival: false
     }
 ];
 
@@ -58,7 +80,7 @@ function App() {
     const [selectedBook, setSelectedBook] = useState(null);
 
     const handleAddToCart = (book) => {
-        alert(`Added "${book.title}" to cart!`);
+        alert(`Added "${book.title}" to cart! 🛒\nPrice: $${book.price}`);
     };
 
     const handleViewDetails = (book) => {
@@ -68,16 +90,27 @@ function App() {
 
     return (
         <Layout>
+            {/* Hero Section */}
             <Hero />
+
+            {/* Featured Categories Section */}
             <FeaturedCategories />
+
+            {/* Bestsellers Section */}
             <Bestsellers
                 books={mockBooks}
                 onAddToCart={handleAddToCart}
                 onViewDetails={handleViewDetails}
             />
 
-            {/* Add more sections here later */}
+            {/* Additional Sections can be added here later:
+      - New Arrivals
+      - Old & Rare Books
+      - Special Offers
+      - Testimonials
+      */}
 
+            {/* Book Details Modal */}
             <Modal
                 isOpen={isModalOpen}
                 onClose={() => {
@@ -87,21 +120,34 @@ function App() {
                 title={selectedBook ? selectedBook.title : "Book Details"}
             >
                 {selectedBook && (
-                    <div>
+                    <div style={{ lineHeight: '1.6' }}>
                         <p><strong>Author:</strong> {selectedBook.author}</p>
                         <p><strong>Price:</strong> ${selectedBook.price}</p>
-                        <p><strong>Rating:</strong> {selectedBook.rating}/5</p>
+                        {selectedBook.originalPrice && (
+                            <p><strong>Original Price:</strong> <span style={{ textDecoration: 'line-through', color: '#8DA9C4' }}>${selectedBook.originalPrice}</span></p>
+                        )}
+                        <p><strong>Rating:</strong> ⭐ {selectedBook.rating}/5</p>
                         <p><strong>Condition:</strong> {selectedBook.condition}</p>
                         {selectedBook.conditionType && (
                             <p><strong>Condition Type:</strong> {selectedBook.conditionType}</p>
                         )}
-                        <div style={{ marginTop: '1.5rem' }}>
+                        <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
                             <button
                                 className="btn btn-primary"
-                                onClick={() => handleAddToCart(selectedBook)}
-                                style={{ padding: '0.75rem 1.5rem' }}
+                                onClick={() => {
+                                    handleAddToCart(selectedBook);
+                                    setIsModalOpen(false);
+                                }}
+                                style={{ padding: '0.75rem 1.5rem', fontSize: '1rem' }}
                             >
                                 Add to Cart
+                            </button>
+                            <button
+                                className="btn btn-secondary"
+                                onClick={() => setIsModalOpen(false)}
+                                style={{ padding: '0.75rem 1.5rem', fontSize: '1rem' }}
+                            >
+                                Continue Shopping
                             </button>
                         </div>
                     </div>
